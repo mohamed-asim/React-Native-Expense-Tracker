@@ -31,7 +31,7 @@ export default function App() {
     }
   }, [isOpen]);
 
-  // Running for total expenses and income
+  //Running for total expenses and income
   useEffect(() => {
     let totalIncomes = 0;
     let totalExpenses = 0;
@@ -51,7 +51,7 @@ export default function App() {
     const result = entries.filter((entry) => entry.id !== id);
     setEntries(result);
   }
-  // Additon operation
+  //Additon operation
   function addEntry() {
     const result = entries.concat({
       id: entries.length + 1,
@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
 });
-
 var initialEntries = [
   {
     id: 1,
