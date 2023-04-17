@@ -8,6 +8,7 @@ import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
 
 export default function App() {
+  //Globally created states to manage
   const [entries, setEntries] = useState(initialEntries);
   const [description, setDescription] = useState("");
   const [value, setValue] = useState("");
