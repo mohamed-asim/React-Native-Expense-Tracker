@@ -1,16 +1,11 @@
 import { View } from "react-native";
 import EntryLine from "./EntryLine";
 
-const EntryLines = ({ entries, deleteEntry, editEntry }) => {
+const EntryLines = ({ entries, editEntry }) => {
   return (
     <View>
       {entries.map((entry) => (
-        <EntryLine
-          key={entry.id}
-          {...entry}
-          deleteEntry={deleteEntry}
-          editEntry={editEntry}
-        />
+        <EntryLine key={entry.id} {...entry} editEntry={editEntry} />
       ))}
     </View>
   );

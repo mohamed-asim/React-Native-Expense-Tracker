@@ -1,5 +1,5 @@
 //Reducer creation
-const reducer = (state = initialEntries, action) {
+const reducer = (state = initialEntries, action) => {
   let newEntries;
   switch (action.type) {
     case "ADD_ENTRY":
@@ -13,18 +13,18 @@ const reducer = (state = initialEntries, action) {
     default:
       return state;
   }
-}
+};
 export default reducer;
 var initialEntries = [
   {
     id: 1,
-    description: "House rent",
+    description: "House rent redux",
     value: 987,
     isExpense: true,
   },
   {
     id: 2,
-    description: "Office income",
+    description: "Office income sdsadsadads",
     value: 3987,
     isExpense: false,
   },

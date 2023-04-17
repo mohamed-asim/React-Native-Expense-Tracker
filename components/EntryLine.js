@@ -1,13 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
+import { EntryDeleteRedux } from "../actions/entries.actions";
 
-function EntryLine({
-  id,
-  description,
-  value,
-  isExpense = false,
-  deleteEntry,
-  editEntry,
-}) {
+function EntryLine({ id, description, value, isExpense = false, editEntry }) {
+  const dispatch = useDispatch();
   return (
     <View>
       <View
@@ -39,7 +35,7 @@ function EntryLine({
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.ButtonStyles}
-            onPress={() => deleteEntry(id)}
+            onPress={() => dispatch(EntryDeleteRedux(id))}
           >
             <Text>Delete</Text>
           </TouchableOpacity>
