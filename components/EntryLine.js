@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
-import { EntryDeleteRedux } from "../actions/entries.actions";
+import { EntryDeleteRedux, UpdateEntryRedux } from "../actions/entries.actions";
+import { openEditModal } from "../actions/modals.actions";
 
-function EntryLine({ id, description, value, isExpense = false, editEntry }) {
+function EntryLine({ id, description, value, isExpense = false }) {
   const dispatch = useDispatch();
   return (
     <View>
@@ -29,7 +30,7 @@ function EntryLine({ id, description, value, isExpense = false, editEntry }) {
         >
           <TouchableOpacity
             style={styles.ButtonStyles}
-            onPress={() => editEntry(id)}
+            onPress={() => dispatch(openEditModal(id))}
           >
             <Text>Edit</Text>
           </TouchableOpacity>

@@ -1,4 +1,4 @@
-//Reducer creation
+//Entries Reducer creation
 const reducer = (state = initialEntries, action) => {
   let newEntries;
   switch (action.type) {
@@ -8,6 +8,14 @@ const reducer = (state = initialEntries, action) => {
 
     case "DELETE_ENTRY":
       newEntries = state.filter((entry) => entry.id !== action.payload.id);
+      return newEntries;
+
+    case "UPDATE_ENTRY":
+      newEntries = [...state];
+      const index = newEntries.findIndex(
+        (entry) => entry.id === action.payload.id
+      );
+      newEntries[index] = { ...action.payload.entry };
       return newEntries;
 
     default:

@@ -36,7 +36,7 @@ function EntryForm({
             style={styles.input}
             placeholder="Value"
             keyboardType="numeric"
-            value={value}
+            value={String(value)}
             onChangeText={setValue}
           />
         </View>

@@ -9,30 +9,21 @@ import ModalEdit from "./components/ModalEdit";
 import { useSelector } from "react-redux";
 
 export const MainContainer = () => {
-  //Globally created states to manage
-  const [description, setDescription] = useState("");
-  const [value, setValue] = useState("");
-  const [isExpense, setIsExpense] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [entryId, setEntryId] = useState();
   const [incomeTotal, setIncomeTotal] = useState(0);
   const [expenseTotal, setExpenseTotal] = useState(0);
   const [total, setTotal] = useState(0);
 
+  const [entry, setEntry] = useState();
+
   //Redux hooks
   const entries = useSelector((state) => state.entries);
+  const { isOpen, id } = useSelector((state) => state.modals);
 
   //Running useEffect when modal is closed to save edited values
   useEffect(() => {
-    if (!isOpen && entryId) {
-      const index = entries.findIndex((entry) => entry.id === entryId);
-      const newEntries = [...entries];
-      newEntries[index].description = description;
-      newEntries[index].value = value;
-      newEntries[index].isExpense = isExpense;
-      //   setEntries(newEntries);
-    }
-  }, [isOpen]);
+    const index = entries.findIndex((entry) => entry.id === id);
+    setEntry(entries[index]);
+  }, [isOpen, id]);
 
   //Running for total expenses and income
   useEffect(() => {
@@ -49,38 +40,6 @@ export const MainContainer = () => {
     setTotal(totalIncomes - totalExpenses);
   }, [entries]);
 
-  //Additon operation
-  function addEntry() {
-    const result = entries.concat({
-      id: entries.length + 1,
-      description,
-      value,
-      isExpense,
-    });
-    // setEntries(result);
-    resetEntry();
-  }
-  //Edition operation
-  function editEntry(id) {
-    console.log(id);
-    if (id) {
-      const index = entries.findIndex((entry) => entry.id === id);
-      const entry = entries[index];
-      setEntryId(id);
-      setDescription(entry.description);
-      setValue(entry.value);
-      setIsExpense(entry.isExpense);
-      setIsOpen(true);
-      resetEntry();
-    }
-  }
-
-  //Clear operation after each change
-  function resetEntry() {
-    setDescription("");
-    setValue("");
-    setIsExpense(true);
-  }
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -93,29 +52,12 @@ export const MainContainer = () => {
         />
 
         <Text style={styles.Bigdata}>History</Text>
-        <EntryLines entries={entries} editEntry={editEntry} />
+        <EntryLines entries={entries} />
 
-        <NewEntryform
-          addEntry={addEntry}
-          description={description}
-          value={value}
-          isExpense={isExpense}
-          setDescription={setDescription}
-          setValue={setValue}
-          setIsExpense={setIsExpense}
-        />
+        <NewEntryform />
       </ScrollView>
 
-      <ModalEdit
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        description={description}
-        value={value}
-        isExpense={isExpense}
-        setDescription={setDescription}
-        setValue={setValue}
-        setIsExpense={setIsExpense}
-      />
+      <ModalEdit isOpen={isOpen} {...entry} />
     </View>
   );
 };

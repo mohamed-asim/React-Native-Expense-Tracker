@@ -1,34 +1,36 @@
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import EntryForm from "./EntryForm";
+import { closeEditModal } from "../actions/modals.actions";
+import { useDispatch } from "react-redux";
+import useEntryDetails from "../hooks/useEntryDetails";
 
-function ModalEdit({
-  isOpen,
-  setIsOpen,
-  description,
-  value,
-  isExpense,
-  setDescription,
-  setValue,
-  setIsExpense,
-}) {
+function ModalEdit({ isOpen, description, value, isExpense, id }) {
+  const dispatch = useDispatch();
+  const entryUpdate = useEntryDetails(description, value, isExpense);
   return (
     <View style={styles.centeredView}>
       <Modal animationType="fade" transparent={true} visible={isOpen}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <TouchableOpacity
-              onPress={() => setIsOpen(false)}
+              onPress={() => entryUpdate.updateEntry(id)}
+              style={styles.modalClose}
+            >
+              <Text>Save</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => dispatch(closeEditModal())}
               style={styles.modalClose}
             >
               <Text>close</Text>
             </TouchableOpacity>
             <EntryForm
-              description={description}
-              value={value}
-              isExpense={isExpense}
-              setDescription={setDescription}
-              setValue={setValue}
-              setIsExpense={setIsExpense}
+              description={entryUpdate.description}
+              value={entryUpdate.value}
+              isExpense={entryUpdate.isExpense}
+              setDescription={entryUpdate.setDescription}
+              setValue={entryUpdate.setValue}
+              setIsExpense={entryUpdate.setIsExpense}
             />
           </View>
         </View>

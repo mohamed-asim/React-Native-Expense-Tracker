@@ -1,31 +1,18 @@
 import { View } from "react-native";
 import ButtonYesCancel from "./ButtonYesCancel";
 import EntryForm from "./EntryForm";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { EntryAddRedux } from "../actions/entries.actions";
-import { v4 as uuidv4 } from "uuid";
+import useEntryDetails from "../hooks/useEntryDetails";
 
 const NewEntryform = () => {
-  const [description, setDescription] = useState("");
-  const [value, setValue] = useState("");
-  const [isExpense, setIsExpense] = useState(false);
-  const dispatch = useDispatch();
-
-  function addEntry() {
-    dispatch(
-      EntryAddRedux({
-        id: uuidv4,
-        description,
-        value,
-        isExpense,
-      })
-    );
-    setDescription("");
-    setValue("");
-    setIsExpense(true);
-  }
-
+  const {
+    description,
+    setDescription,
+    value,
+    setValue,
+    isExpense,
+    setIsExpense,
+    addEntry,
+  } = useEntryDetails();
   return (
     <View>
       <EntryForm
