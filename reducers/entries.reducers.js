@@ -1,16 +1,18 @@
+import entriesTypes from "../actions/entries.actions";
+
 //Entries Reducer creation
 const reducer = (state = initialEntries, action) => {
   let newEntries;
   switch (action.type) {
-    case "ADD_ENTRY":
+    case entriesTypes.ADD_ENTRY:
       newEntries = state.concat({ ...action.payload });
       return newEntries;
 
-    case "DELETE_ENTRY":
+    case entriesTypes.DELETE_ENTRY:
       newEntries = state.filter((entry) => entry.id !== action.payload.id);
       return newEntries;
 
-    case "UPDATE_ENTRY":
+    case entriesTypes.UPDATE_ENTRY:
       newEntries = [...state];
       const index = newEntries.findIndex(
         (entry) => entry.id === action.payload.id
@@ -23,17 +25,5 @@ const reducer = (state = initialEntries, action) => {
   }
 };
 export default reducer;
-var initialEntries = [
-  {
-    id: 1,
-    description: "House rent redux",
-    value: 987,
-    isExpense: true,
-  },
-  {
-    id: 2,
-    description: "Office income sdsadsadads",
-    value: 3987,
-    isExpense: false,
-  },
-];
+
+var initialEntries = [];

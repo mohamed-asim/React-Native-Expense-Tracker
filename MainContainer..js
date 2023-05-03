@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
+
+import { useSelector } from "react-redux";
+import axios from "axios";
+
 import MainHeader from "./components/Mainheader";
 import NewEntryform from "./components/NewEntryform";
 import DisplayBalance from "./components/DisplayBalance";
 import DisplayBalances from "./components/DisplayBalances";
 import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
-import { useSelector } from "react-redux";
 
 export const MainContainer = () => {
   const [incomeTotal, setIncomeTotal] = useState(0);
@@ -40,6 +43,14 @@ export const MainContainer = () => {
     setTotal(totalIncomes - totalExpenses);
   }, [entries]);
 
+  //running axios to fetch data
+  async function fetchInitialData() {
+    const result = await fetch("http://localhost:3005/entries");
+    console.log(result);
+  }
+  useEffect(() => {
+    fetchInitialData();
+  }, []);
   return (
     <View style={styles.container}>
       <ScrollView>

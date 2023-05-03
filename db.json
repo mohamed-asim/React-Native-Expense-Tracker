@@ -1,0 +1,16 @@
+{
+  "entries": [
+    {
+      "id": 1,
+      "description": "House rent redux",
+      "value": 987,
+      "isExpense": true
+    },
+    {
+      "id": 2,
+      "description": "Office income sdsadsadads",
+      "value": 3987,
+      "isExpense": false
+    }
+  ]
+}
